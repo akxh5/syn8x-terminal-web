@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 
 const HeroSection = () => {
@@ -12,6 +13,10 @@ const HeroSection = () => {
   const [phraseIndex, setPhraseIndex] = useState(0);
   const [isScrambling, setIsScrambling] = useState(false);
   const [showTerminal, setShowTerminal] = useState(false);
+  const [taglineText, setTaglineText] = useState('');
+  const [showCursor, setShowCursor] = useState(true);
+
+  const taglineWords = ['Web3.', 'AI.', 'Next-gen infrastructure.'];
 
   useEffect(() => {
     const scrambleChars = '!@#$%^&*()_+-=[]{}|;:,.<>?';
@@ -37,16 +42,15 @@ const HeroSection = () => {
           setIsScrambling(false);
           clearInterval(scrambleInterval);
           
-          if (phraseIndex < phrases.length - 1) {
-            nextPhraseTimeout = setTimeout(() => {
-              setPhraseIndex(prev => prev + 1);
-            }, 1000);
-          }
+          // Continue cycling through all phrases indefinitely
+          nextPhraseTimeout = setTimeout(() => {
+            setPhraseIndex(prev => (prev + 1) % phrases.length);
+          }, 1500);
         }
       }, 50);
     };
 
-    const timeout = setTimeout(startScramble, phraseIndex * 2000);
+    const timeout = setTimeout(startScramble, phraseIndex === 0 ? 0 : 2000);
 
     return () => {
       clearTimeout(timeout);
@@ -54,6 +58,48 @@ const HeroSection = () => {
       clearInterval(scrambleInterval);
     };
   }, [phraseIndex]);
+
+  // Typewriter effect for tagline
+  useEffect(() => {
+    if (phraseIndex >= 3) { // Start typing after first cycle
+      let currentWordIndex = 0;
+      let currentCharIndex = 0;
+      let typingTimeout: NodeJS.Timeout;
+
+      const typeText = () => {
+        if (currentWordIndex < taglineWords.length) {
+          const currentWord = taglineWords[currentWordIndex];
+          
+          if (currentCharIndex < currentWord.length) {
+            setTaglineText(prev => prev + currentWord[currentCharIndex]);
+            currentCharIndex++;
+            typingTimeout = setTimeout(typeText, 100);
+          } else {
+            // Word completed, add space and move to next word
+            setTaglineText(prev => prev + ' ');
+            currentWordIndex++;
+            currentCharIndex = 0;
+            typingTimeout = setTimeout(typeText, 800); // Pause between words
+          }
+        }
+      };
+
+      if (taglineText === '') {
+        typingTimeout = setTimeout(typeText, 500);
+      }
+
+      return () => clearTimeout(typingTimeout);
+    }
+  }, [phraseIndex, taglineText]);
+
+  // Cursor blink effect
+  useEffect(() => {
+    const cursorInterval = setInterval(() => {
+      setShowCursor(prev => !prev);
+    }, 500);
+
+    return () => clearInterval(cursorInterval);
+  }, []);
 
   const handleLaunchTerminal = () => {
     setShowTerminal(true);
@@ -80,15 +126,23 @@ const HeroSection = () => {
         
         <div className="text-center z-10 px-6">
           <div className="mb-8">
-            <h1 className="text-6xl md:text-8xl font-mono font-bold text-white mb-4">
-              <span className={`${phraseIndex === phrases.length - 1 ? 'text-neon-cyan animate-glow' : 'text-white'}`}>
+            <h1 className="text-6xl md:text-8xl font-mono font-bold mb-6">
+              <span className={`transition-all duration-1000 ${
+                phraseIndex === 3 
+                  ? 'text-neon-cyan' 
+                  : 'text-white'
+              } ${phraseIndex === 3 ? 'drop-shadow-[0_0_8px_rgba(0,249,255,0.3)]' : ''}`}>
                 {currentText}
               </span>
             </h1>
-            <div className="flex items-center justify-center space-x-2 text-xl md:text-2xl font-mono text-gray-400">
-              <span>&gt;</span>
-              <span className="uppercase tracking-widest">Web3 • AI • Next-Gen Infrastructure</span>
-              <span className="animate-blink text-neon-cyan">_</span>
+            
+            {/* Typewriter tagline */}
+            <div className="h-16 flex items-center justify-center">
+              <div className="text-xl md:text-2xl font-mono text-gray-300 tracking-wider">
+                <span>&gt;</span>
+                <span className="ml-2 uppercase">{taglineText}</span>
+                <span className={`ml-1 text-neon-cyan ${showCursor ? 'opacity-100' : 'opacity-0'} transition-opacity duration-100`}>_</span>
+              </div>
             </div>
           </div>
           
