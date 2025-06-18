@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 
 const HeroSection = () => {
@@ -96,7 +95,7 @@ const HeroSection = () => {
           <div className="mt-12 space-y-4">
             <button
               onClick={handleLaunchTerminal}
-              className="bg-transparent border-2 border-neon-cyan text-neon-cyan px-8 py-4 font-mono uppercase tracking-wider hover:bg-neon-cyan hover:text-jet-black transition-all duration-300 animate-neon-pulse mr-4"
+              className="bg-transparent border-2 border-neon-cyan text-neon-cyan px-8 py-4 font-mono uppercase tracking-wider hover:bg-neon-cyan hover:text-jet-black transition-all duration-300 hover:shadow-[0_0_20px_#00F9FF] shadow-[0_0_5px_#00F9FF] mr-4"
             >
               Launch Terminal
             </button>
