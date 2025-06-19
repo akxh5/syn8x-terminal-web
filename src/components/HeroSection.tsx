@@ -6,7 +6,7 @@ const HeroSection = () => {
   'syn8x',
   '系统八号',       // Mandarin
   'syn8x',
-  'Système Huit X', // French
+  'système huit x', // French
   'syn8x'
 ];
   
@@ -20,39 +20,39 @@ const HeroSection = () => {
   let scrambleInterval: NodeJS.Timeout;
   let nextPhraseTimeout: NodeJS.Timeout;
 
-  const startScramble = () => {
-    setIsScrambling(true);
-    const targetPhrase = phrases[phraseIndex];
-    let scrambleCount = 0;
-    const maxScrambles = 8;
+  const targetPhrase = phrases[phraseIndex];
+  const isSyn8x = targetPhrase === 'syn8x';
 
-    scrambleInterval = setInterval(() => {
-      if (scrambleCount < maxScrambles) {
-        setCurrentText(
-          Array.from({ length: targetPhrase.length }, () =>
-            scrambleChars[Math.floor(Math.random() * scrambleChars.length)]
-          ).join('')
+  const maxScrambles = 20;           // More frames for visible unscramble
+  const scrambleSpeed = 30;          // Slightly slower per frame
+
+  setIsScrambling(true);
+  let scrambleCount = 0;
+
+  scrambleInterval = setInterval(() => {
+    if (scrambleCount < maxScrambles) {
+      setCurrentText(
+        Array.from({ length: targetPhrase.length }, () =>
+          scrambleChars[Math.floor(Math.random() * scrambleChars.length)]
+        ).join('')
+      );
+      scrambleCount++;
+    } else {
+      setCurrentText(targetPhrase);
+      setIsScrambling(false);
+      clearInterval(scrambleInterval);
+
+      // syn8x stays longer (e.g. 2000ms), others (e.g. 900ms)
+      const displayTime = isSyn8x ? 2000 : 900;
+      nextPhraseTimeout = setTimeout(() => {
+        setPhraseIndex(prev =>
+          prev < phrases.length - 1 ? prev + 1 : 0
         );
-        scrambleCount++;
-      } else {
-        setCurrentText(targetPhrase);
-        setIsScrambling(false);
-        clearInterval(scrambleInterval);
-
-        // Loop: restart from 0 after last phrase
-        nextPhraseTimeout = setTimeout(() => {
-          setPhraseIndex(prev =>
-            prev < phrases.length - 1 ? prev + 1 : 0 // loops back to start
-          );
-        }, 400);
-      }
-    }, 20);
-  };
-
-  const timeout = setTimeout(startScramble, phraseIndex * 800);
+      }, displayTime);
+    }
+  }, scrambleSpeed);
 
   return () => {
-    clearTimeout(timeout);
     clearTimeout(nextPhraseTimeout);
     clearInterval(scrambleInterval);
   };
@@ -84,9 +84,9 @@ const HeroSection = () => {
         <div className="text-center z-10 px-6">
           <div className="mb-8">
             <h1 className="text-6xl md:text-8xl font-mono font-bold text-white mb-4">
-              <span className={`${phraseIndex === phrases.length - 1 ? 'text-neon-cyan' : 'text-white'}`}>
-                {currentText}
-              </span>
+             <span className={currentText === "syn8x" ? 'text-neon-cyan' : 'text-white'}>
+  {currentText}
+</span>
             </h1>
             <div className="flex items-center justify-center space-x-2 text-xl md:text-2xl font-mono text-gray-400">
               <span>&gt;</span>
