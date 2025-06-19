@@ -294,7 +294,7 @@ const CoreTeamSection = () => {
       role: 'CEO',
       handle: '@akxh_5',
       twitter: 'akxh_5',
-      bio: 'System architect. Vision core. Runs on caffeine and code.',
+      bio: 'Codeblooded. Vision core. Leads from the terminal.',
       color: 'border-fuchsia-500 bg-fuchsia-500/10'
     },
     {
@@ -308,7 +308,7 @@ const CoreTeamSection = () => {
       role: 'CFO',
       handle: '@unknown_bird27',
       twitter: 'unknown_bird27',
-      bio: 'The capital firewall. Math brain meets stealth ops.Every decimal has intent.',
+      bio: 'The capital firewall. Math brain meets stealth ops.',
       color: 'border-emerald-400 bg-emerald-400/10'
     }
   ];
