@@ -69,11 +69,11 @@ const HeroSection = () => {
   return (
     <>
       <section className="min-h-screen bg-jet-black flex items-center justify-center relative overflow-hidden">
-        {/* Interactive grid pattern background */}
-        <div className="absolute inset-0 opacity-10">
+        {/* Enhanced interactive grid pattern background */}
+        <div className="absolute inset-0 opacity-40">
           <div className="grid grid-cols-12 gap-1 h-full">
             {Array.from({ length: 144 }, (_, i) => (
-              <InteractiveGridSquare key={i} />
+              <InteractiveGridSquare key={i} index={i} />
             ))}
           </div>
         </div>
@@ -120,26 +120,25 @@ const HeroSection = () => {
   );
 };
 
-const InteractiveGridSquare = () => {
+const InteractiveGridSquare = ({ index }: { index: number }) => {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
     <div
       className={`
-        border border-neon-cyan/20 
-        transition-all duration-300 ease-out
-        cursor-pointer
-        will-change-transform
+        border transition-all duration-500 ease-out cursor-pointer
+        will-change-transform transform-gpu
         ${isHovered 
-          ? 'border-neon-cyan/60 bg-neon-cyan/5 shadow-[0_0_15px_rgba(0,249,255,0.3)] transform -translate-y-1 scale-105 rounded-sm' 
-          : 'hover:border-neon-cyan/40'
+          ? 'border-neon-cyan bg-neon-cyan/20 shadow-[0_0_30px_rgba(0,249,255,0.8),0_0_60px_rgba(0,249,255,0.4),0_0_90px_rgba(0,249,255,0.2)] -translate-y-4 scale-125 rounded-lg animate-pulse' 
+          : 'border-neon-cyan/40 hover:border-neon-cyan/60 hover:shadow-[0_0_15px_rgba(0,249,255,0.3)] hover:-translate-y-1'
         }
       `}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       style={{
         transformStyle: 'preserve-3d',
-        perspective: '1000px'
+        perspective: '1000px',
+        animationDelay: `${(index % 12) * 0.05}s`
       }}
     />
   );
