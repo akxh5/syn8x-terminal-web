@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 
 const HeroSection = () => {
@@ -81,7 +82,7 @@ const HeroSection = () => {
         <div className="text-center z-10 px-6">
           <div className="mb-8">
             <h1 className="text-6xl md:text-8xl font-mono font-bold text-white mb-4">
-              <span className={`${phraseIndex === phrases.length - 1 ? 'text-neon-cyan animate-glow' : 'text-white'}`}>
+              <span className={`${phraseIndex === phrases.length - 1 ? 'text-neon-cyan' : 'text-white'}`}>
                 {currentText}
               </span>
             </h1>
