@@ -1,59 +1,62 @@
 import React, { useState, useEffect } from 'react';
 
 const HeroSection = () => {
-  const phrases = [
-    'シンセックス',
-    'Système Huit X',
-    '系统八号',
-    'syn8x'
-  ];
+ const phrases = [
+  'シンセックス',   // Japanese
+  'syn8x',
+  '系统八号',       // Mandarin
+  'syn8x',
+  'Système Huit X', // French
+  'syn8x'
+];
   
   const [currentText, setCurrentText] = useState('');
   const [phraseIndex, setPhraseIndex] = useState(0);
   const [isScrambling, setIsScrambling] = useState(false);
   const [showTerminal, setShowTerminal] = useState(false);
 
-  useEffect(() => {
-    const scrambleChars = '!@#$%^&*()_+-=[]{}|;:,.<>?';
-    let scrambleInterval: NodeJS.Timeout;
-    let nextPhraseTimeout: NodeJS.Timeout;
+ useEffect(() => {
+  const scrambleChars = '!@#$%^&*()_+-=[]{}|;:,.<>?';
+  let scrambleInterval: NodeJS.Timeout;
+  let nextPhraseTimeout: NodeJS.Timeout;
 
-    const startScramble = () => {
-      setIsScrambling(true);
-      const targetPhrase = phrases[phraseIndex];
-      let scrambleCount = 0;
-      const maxScrambles = 20;
+  const startScramble = () => {
+    setIsScrambling(true);
+    const targetPhrase = phrases[phraseIndex];
+    let scrambleCount = 0;
+    const maxScrambles = 8;
 
-      scrambleInterval = setInterval(() => {
-        if (scrambleCount < maxScrambles) {
-          setCurrentText(
-            Array.from({ length: targetPhrase.length }, () =>
-              scrambleChars[Math.floor(Math.random() * scrambleChars.length)]
-            ).join('')
+    scrambleInterval = setInterval(() => {
+      if (scrambleCount < maxScrambles) {
+        setCurrentText(
+          Array.from({ length: targetPhrase.length }, () =>
+            scrambleChars[Math.floor(Math.random() * scrambleChars.length)]
+          ).join('')
+        );
+        scrambleCount++;
+      } else {
+        setCurrentText(targetPhrase);
+        setIsScrambling(false);
+        clearInterval(scrambleInterval);
+
+        // Loop: restart from 0 after last phrase
+        nextPhraseTimeout = setTimeout(() => {
+          setPhraseIndex(prev =>
+            prev < phrases.length - 1 ? prev + 1 : 0 // loops back to start
           );
-          scrambleCount++;
-        } else {
-          setCurrentText(targetPhrase);
-          setIsScrambling(false);
-          clearInterval(scrambleInterval);
-          
-          if (phraseIndex < phrases.length - 1) {
-            nextPhraseTimeout = setTimeout(() => {
-              setPhraseIndex(prev => prev + 1);
-            }, 1000);
-          }
-        }
-      }, 50);
-    };
+        }, 400);
+      }
+    }, 20);
+  };
 
-    const timeout = setTimeout(startScramble, phraseIndex * 2000);
+  const timeout = setTimeout(startScramble, phraseIndex * 800);
 
-    return () => {
-      clearTimeout(timeout);
-      clearTimeout(nextPhraseTimeout);
-      clearInterval(scrambleInterval);
-    };
-  }, [phraseIndex]);
+  return () => {
+    clearTimeout(timeout);
+    clearTimeout(nextPhraseTimeout);
+    clearInterval(scrambleInterval);
+  };
+}, [phraseIndex]);
 
   const handleLaunchTerminal = () => {
     setShowTerminal(true);
