@@ -295,21 +295,21 @@ const CoreTeamSection = () => {
       handle: '@akxh_5',
       twitter: 'akxh_5',
       bio: 'System architect. Vision core. Runs on caffeine and code.',
-      color: 'border-purple-500 bg-purple-500/10'
+      color: 'border-fuchsia-500 bg-fuchsia-500/10'
     },
     {
       role: 'CTO',
       handle: '@_aryan1p',
       twitter: '_aryan1p',
-      bio: 'Zero to protocol in hours. Fullstack generalist, crypto-native.',
-      color: 'border-neon-cyan bg-neon-cyan/10'
+      bio: 'Turns chaos into deploys. Zero to protocol in hours.',
+      color: 'border-cyan-400 bg-cyan-400/10'
     },
     {
       role: 'CFO',
       handle: '@unknown_bird27',
       twitter: 'unknown_bird27',
-      bio: 'The capital firewall. Math brain meets stealth ops.',
-      color: 'border-green-500 bg-green-500/10'
+      bio: 'The capital firewall. Math brain meets stealth ops.Every decimal has intent.',
+      color: 'border-emerald-400 bg-emerald-400/10'
     }
   ];
 
