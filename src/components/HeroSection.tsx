@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 
 const HeroSection = () => {
@@ -70,11 +69,11 @@ const HeroSection = () => {
   return (
     <>
       <section className="min-h-screen bg-jet-black flex items-center justify-center relative overflow-hidden">
-        {/* Grid pattern background */}
+        {/* Interactive grid pattern background */}
         <div className="absolute inset-0 opacity-10">
           <div className="grid grid-cols-12 gap-1 h-full">
             {Array.from({ length: 144 }, (_, i) => (
-              <div key={i} className="border border-neon-cyan/20"></div>
+              <InteractiveGridSquare key={i} />
             ))}
           </div>
         </div>
@@ -118,6 +117,31 @@ const HeroSection = () => {
         </div>
       )}
     </>
+  );
+};
+
+const InteractiveGridSquare = () => {
+  const [isHovered, setIsHovered] = useState(false);
+
+  return (
+    <div
+      className={`
+        border border-neon-cyan/20 
+        transition-all duration-300 ease-out
+        cursor-pointer
+        will-change-transform
+        ${isHovered 
+          ? 'border-neon-cyan/60 bg-neon-cyan/5 shadow-[0_0_15px_rgba(0,249,255,0.3)] transform -translate-y-1 scale-105 rounded-sm' 
+          : 'hover:border-neon-cyan/40'
+        }
+      `}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      style={{
+        transformStyle: 'preserve-3d',
+        perspective: '1000px'
+      }}
+    />
   );
 };
 
