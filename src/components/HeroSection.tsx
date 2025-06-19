@@ -300,7 +300,7 @@ const CoreTeamSection = () => {
     {
       role: 'CTO',
       handle: '@_aryan1p',
-      twitter: '_aryan1p'
+      twitter: '_aryan1p',
       bio: 'Zero to protocol in hours. Fullstack generalist, crypto-native.',
       color: 'border-neon-cyan bg-neon-cyan/10'
     },
@@ -324,16 +324,17 @@ const CoreTeamSection = () => {
             style={{ animationDelay: `${index * 0.2}s` }}
           >
            <a
-             href={`https://x.com/${member.twitter}`}
-             target="_blank"
-             rel="noopener noreferrer"
-             className="absolute top-2 right-3 text-neon-cyan hover:text-white transition-colors z-20"
-             title={`Visit ${member.handle} on X (Twitter)`}
-             onClick={e => e.stopPropagation()} // Prevents card click events if you add them later
-           >
-  {/* Simple X (Twitter) icon SVG */}
-  <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-    <path d="M6 6l12 12M6 18L18 6" strokeWidth={2} strokeLinecap="round" />
+  href={`https://x.com/${member.twitter}`}
+  target="_blank"
+  rel="noopener noreferrer"
+  className="absolute top-2 right-3 text-neon-cyan hover:text-white z-20"
+  title={`Visit ${member.handle} on X (Twitter)`}
+  onClick={e => e.stopPropagation()}
+>
+  {/* X (Twitter) logo SVG */}
+  <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+    <title>X</title>
+    <path d="M17.53 2.477h3.924L14.36 10.06 22.828 21.5h-7.633l-5.34-7.26-6.096 7.26H1.831L9.97 13.16.818 2.477h7.792l4.98 6.776 5.94-6.776zm-1.356 17.563h2.176L6.61 4.15H4.27z"/>
   </svg>
 </a>
             <div className="relative z-10">
