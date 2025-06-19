@@ -293,18 +293,21 @@ const CoreTeamSection = () => {
     {
       role: 'CEO',
       handle: '@akxh_5',
+      twitter: 'akxh_5',
       bio: 'System architect. Vision core. Runs on caffeine and code.',
       color: 'border-purple-500 bg-purple-500/10'
     },
     {
       role: 'CTO',
       handle: '@_aryan1p',
+      twitter: '_aryan1p'
       bio: 'Zero to protocol in hours. Fullstack generalist, crypto-native.',
       color: 'border-neon-cyan bg-neon-cyan/10'
     },
     {
       role: 'CFO',
       handle: '@unknown_bird27',
+      twitter: 'unknown_bird27',
       bio: 'The capital firewall. Math brain meets stealth ops.',
       color: 'border-green-500 bg-green-500/10'
     }
@@ -320,6 +323,19 @@ const CoreTeamSection = () => {
             className={`${member.color} border-2 p-4 animate-fade-in-up relative overflow-hidden group`}
             style={{ animationDelay: `${index * 0.2}s` }}
           >
+           <a
+             href={`https://x.com/${member.twitter}`}
+             target="_blank"
+             rel="noopener noreferrer"
+             className="absolute top-2 right-3 text-neon-cyan hover:text-white transition-colors z-20"
+             title={`Visit ${member.handle} on X (Twitter)`}
+             onClick={e => e.stopPropagation()} // Prevents card click events if you add them later
+           >
+  {/* Simple X (Twitter) icon SVG */}
+  <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path d="M6 6l12 12M6 18L18 6" strokeWidth={2} strokeLinecap="round" />
+  </svg>
+</a>
             <div className="relative z-10">
               <div className="text-xs text-gray-400 uppercase tracking-wider mb-1">{member.role}</div>
               <div className="text-white font-bold mb-2">{member.handle}</div>
